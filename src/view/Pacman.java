@@ -52,7 +52,6 @@ public class Pacman extends JFrame {
 		
 		pac.setVisible(true);
 
-		
 	}
 
 }
