@@ -1,11 +1,11 @@
-package view;
+package model.map;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-public class Graphh {
-	protected int vertexs;
+public class CreateMap {
+    protected int vertexs;
 	protected int[][] matrix;
 	protected String url;
 
@@ -53,7 +53,7 @@ public class Graphh {
 		}
 	}
 
-	public Graphh() {
+	public CreateMap() {
 
 	}
 
@@ -65,7 +65,4 @@ public class Graphh {
 		this.matrix = matrix;
 	}
 
-	public static void main(String[] args) {
-		System.out.println("Create fork");
-	}
 }
