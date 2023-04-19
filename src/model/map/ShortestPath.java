@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
 
-public class ShortestPath{
-    protected int vertexs;
+public class ShortestPath {
+	protected int vertexs;
 	protected int[][] matrix;
 
 	public void loadMatrix(String pathFile) {
@@ -111,16 +111,6 @@ public class ShortestPath{
 		return tmp;
 	}
 
-	public boolean contains(List<Integer> tmp, int v) {
-		boolean result = false;
-		for (Integer i : tmp) {
-			if (i == v) {
-				result = true;
-			}
-		}
-		return result;
-	}
-
 	public List<Integer> duongDiNganNhat(int v1, int v2) {
 		// lam theo nguyen ly cua BFS
 
@@ -165,19 +155,21 @@ public class ShortestPath{
 		for (int j = tmp2.size() - 1; j >= 0; j--) {
 			result.add(tmp2.get(j));
 		}
-		//  dao nguoc danh sach lai v1 -> v2
+		// dao nguoc danh sach lai v1 -> v2
 		return result;
 	}
+	
 	public List<Integer> dinhKe2(int v) {
 		// tim danh sach cac dinh ke cua dinh v
 		ArrayList<Integer> tmp = new ArrayList<>();
-		for (int i = matrix.length-1; i >=0; i--) {
+		for (int i = matrix.length - 1; i >= 0; i--) {
 			if (matrix[v][i] != 0) {
 				tmp.add(i);
 			}
 		}
 		return tmp;
 	}
+
 	public List<Integer> duongDiNganNhat2(int v1, int v2) {
 		// lam theo nguyen ly cua BFS
 
@@ -222,9 +214,10 @@ public class ShortestPath{
 		for (int j = tmp2.size() - 1; j >= 0; j--) {
 			result.add(tmp2.get(j));
 		}
-		//  dao nguoc danh sach lai v1 -> v2
+		// dao nguoc danh sach lai v1 -> v2
 		return result;
 	}
+
 	public void printList(List<Integer> list) {
 		for (Integer i : list) {
 			System.out.print(i + " ");
@@ -234,11 +227,12 @@ public class ShortestPath{
 
 	public static void main(String[] args) {
 		ShortestPath test = new ShortestPath();
-		test.loadMatrix("./resources/map/LTĐT_Map_15x15.txt");
+		// test.loadMatrix("./resources/map/LTDT_Map_23x23.txt");
+		test.loadMatrix("./resources/map/Test.txt");
 		test.printMatrix();
-		test.printList(test.duongDiNganNhat(0, 10));
+		test.printList(test.duongDiNganNhat(0, 7));
 		System.out.println();
-		test.printList(test.duongDiNganNhat2(0, 10));
+		test.printList(test.duongDiNganNhat2(0, 7));
 	}
 
 }
