@@ -76,7 +76,7 @@ public class PlayerController implements KeyListener {
 		}
 	}
 	
-
+	// xử lý sự kiện nhấn phím của người dùng
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int direction = e.getKeyCode();

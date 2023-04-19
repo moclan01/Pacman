@@ -11,14 +11,11 @@ public class Ghost extends JLabel{
 
     private static int[][] matrix;
 	private static JLabel[][] map = new JLabel[19][19];;
-	private static LoadMap g;
-	private int cow = matrix.length;
-	private Color color;
-	private int width;
-	private int height;
-	int rowGhost = 7;// Dong cua Ghost trong map
-	int colGhost = 7;// Cot cua Ghost trong map
+	int rowGhost = 7;// Dong bat dau cua Ghost trong map
+	int colGhost = 7;// Cot bat dau cua Ghost trong map
     
+	//chưa hoàn thiện
+
     //moveGhost chua lam
 	public void moveGhost() {
 		map[rowGhost][colGhost].setIcon(null);

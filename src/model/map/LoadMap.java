@@ -7,10 +7,8 @@ import java.io.FileReader;
 public class LoadMap {
 	protected int vertexs;
 	protected int[][] matrix;
-	protected String url;
 
 	public void loadMatrix(String pathFile) {
-		this.url = pathFile;
 		File file = new File(pathFile);
 		try {
 			FileReader fr = new FileReader(file);
@@ -27,8 +25,10 @@ public class LoadMap {
 				row++;
 
 			}
+			br.close();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.getStackTrace();
 		}
 
 	}
@@ -63,7 +63,7 @@ public class LoadMap {
 
 	public static void main(String[] args) {
 		LoadMap test = new LoadMap();
-		test.loadMatrix("./resources/map/Map_15x15.txt");
+		test.loadMatrix("./resources/map/Map_23x23.txt");
 		test.printMatrix();
 	}
 }
