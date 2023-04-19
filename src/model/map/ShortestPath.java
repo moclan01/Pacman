@@ -6,17 +6,14 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
 public class ShortestPath{
     protected int vertexs;
 	protected int[][] matrix;
-	protected String url;
 
 	public void loadMatrix(String pathFile) {
-		this.url = pathFile;
 		File file = new File(pathFile);
 		try {
 			FileReader fr = new FileReader(file);
@@ -33,8 +30,10 @@ public class ShortestPath{
 				row++;
 
 			}
+			br.close();
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.getStackTrace();
 		}
 
 	}

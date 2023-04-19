@@ -1,10 +1,8 @@
 package model.ghost;
 
 import javax.swing.JLabel;
-import java.awt.*;
 import javax.swing.*;
 
-import model.map.LoadMap;
 
 public class Ghost extends JLabel{
     private final ImageIcon ghost = new ImageIcon("ghost.gif");
