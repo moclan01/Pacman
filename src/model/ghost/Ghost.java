@@ -16,25 +16,23 @@ public class Ghost extends JLabel{
 	private Color color;
 	private int width;
 	private int height;
-	int x = 11;
-	int y = 11;
-	int xx = 7;
-	int yy = 7;
+	int rowGhost = 7;// Dong cua Ghost trong map
+	int colGhost = 7;// Cot cua Ghost trong map
     
-    public void moveGhost() {
-		map[xx][yy].setIcon(null);
-		// if()
-		if (matrix[xx][yy - 1] != 0) {
-			yy--;
+    //moveGhost chua lam
+	public void moveGhost() {
+		map[rowGhost][colGhost].setIcon(null);
+		if (matrix[rowGhost][colGhost - 1] != 0) {
+			colGhost--;
 		} else {
-			if (matrix[xx + 1][yy] != 0 && matrix[xx - 1][yy] == 0) {
-				xx++;
+			if (matrix[rowGhost + 1][colGhost] != 0 && matrix[rowGhost - 1][colGhost] == 0) {
+				rowGhost++;
 			} else {
-				if (matrix[xx - 1][yy] != 0) {
-					xx--;
+				if (matrix[rowGhost - 1][colGhost] != 0) {
+					rowGhost--;
 				}
 			}
 		}
-		map[xx][yy].setIcon(ghost);
-    }
+		map[rowGhost][colGhost].setIcon(ghost);
+	}
 }
