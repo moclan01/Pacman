@@ -87,6 +87,7 @@ public class MainView extends JFrame {
 
 		TimerTask task = new TimerTask() {
 			public void run() {
+				//gọi hàm điều hướng
 				playerController.movePacman(getDirection());
 			}
 		};

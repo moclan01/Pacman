@@ -112,7 +112,7 @@ public class ShortestPath {
 	}
 
 	public List<Integer> duongDiNganNhat(int v1, int v2) {
-		// lam theo nguyen ly cua BFS
+		// lam theo nguyen ly cua BFS duyet theo chieu rong
 
 		int[] dinhBo = new int[vertexs];
 		// luu lai dinh bo cua cac dinh
