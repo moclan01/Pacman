@@ -1,4 +1,4 @@
-package model.Pacman;
+package Pacman;
 
 public class PacMan {
 

@@ -10,8 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import controller.PlayerController;
-import model.map.LoadMap;
+import Pacman.PlayerController;
+import map.LoadMap;
 
 public class MainView extends JFrame {
 	private final ImageIcon pacman = new ImageIcon("resources/image/pacman.png");

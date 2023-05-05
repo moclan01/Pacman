@@ -1,4 +1,4 @@
-package model.ghost;
+package ghost;
 
 import javax.swing.JLabel;
 import javax.swing.*;

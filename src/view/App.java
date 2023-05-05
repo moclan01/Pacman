@@ -1,6 +1,4 @@
-package app;
-
-import view.MainView;
+package view;
 
 public class App {
     public static void main(String[] args) {
