@@ -10,8 +10,14 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class ShortestPath {
-	protected int vertexs;
-	protected int[][] matrix;
+	private int vertexs;
+	private int[][] matrix;
+	private String pathFile;
+
+	public ShortestPath(String pathFile) {
+		this.pathFile = pathFile;
+		loadMatrix(pathFile);
+	}
 
 	public void loadMatrix(String pathFile) {
 		File file = new File(pathFile);
@@ -158,7 +164,7 @@ public class ShortestPath {
 		// dao nguoc danh sach lai v1 -> v2
 		return result;
 	}
-	
+
 	public List<Integer> dinhKe2(int v) {
 		// tim danh sach cac dinh ke cua dinh v
 		ArrayList<Integer> tmp = new ArrayList<>();
@@ -223,16 +229,6 @@ public class ShortestPath {
 			System.out.print(i + " ");
 
 		}
-	}
-
-	public static void main(String[] args) {
-		ShortestPath test = new ShortestPath();
-		// test.loadMatrix("./resources/map/LTDT_Map_23x23.txt");
-		test.loadMatrix("./resources/map/Test.txt");
-		test.printMatrix();
-		test.printList(test.duongDiNganNhat(0, 7));
-		System.out.println();
-		test.printList(test.duongDiNganNhat2(0, 7));
 	}
 
 }
