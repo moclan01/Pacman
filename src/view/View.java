@@ -3,10 +3,7 @@ package view;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-
-import pacman.PlayerController;
 
 public class View extends JFrame implements KeyListener {
 	MainView mainView;

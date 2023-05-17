@@ -1,6 +1,5 @@
 package app;
 
-import view.MainView;
 import view.View;
 
 public class App {

@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class EndView extends JPanel implements KeyListener {
@@ -69,16 +68,4 @@ public class EndView extends JPanel implements KeyListener {
 		// TODO Auto-generated method stub
 		
 	}
-	public static void main(String[] args) {
-	EndView st = new EndView(null);
-	
-	JFrame jf = new JFrame();
-	jf.setSize(300,300);
-	jf.setDefaultCloseOperation(jf.EXIT_ON_CLOSE);
-	jf.setLocationRelativeTo(null);
-	st.setVisible(true);
-	jf.setContentPane(st);
-	st.setFocusable(true);
-	jf.setVisible(true);
-}
 }

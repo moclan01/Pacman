@@ -13,7 +13,7 @@ public class ShortestPath {
 	private int vertexs;
 	private int[][] matrix;
 	private String pathFile;
-
+	
 	public ShortestPath(String pathFile) {
 		this.pathFile = pathFile;
 		loadMatrix(pathFile);
