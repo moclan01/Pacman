@@ -40,7 +40,8 @@ public class Ghost {
 		setListIndex();
 	}
 
-	public void setListIndex() { // set vị trí row, col của các đỉnh đồ thị trong map
+	// set vị trí row, col của các đỉnh đồ thị trong map
+	public void setListIndex() { 
 		colIndex[0] = 1;
 		rowIndex[0] = 1;
 		// Cơ chế set: trong file chứa ma trận map, những vị trí đỉnh được thay
@@ -56,7 +57,8 @@ public class Ghost {
 		}
 	}
 
-	public void setGhostIndex() { // set vị trí (đỉnh) đồ thị của ghost trong map
+	// set vị trí (đỉnh) đồ thị của ghost trong map
+	public void setGhostIndex() { 
 		// Cơ chế set: Nếu row và col của ghost đều = với row và col của 1 đỉnh thì
 		// vị trí của ghost = đỉnh có row, col trùng vs row col của ghost
 		for (int i = 0; i < colIndex.length; i++) {
@@ -66,7 +68,8 @@ public class Ghost {
 		}
 	}
 
-	public void setPacIndex() { // set vi trí ( đỉnh) đồ thị của PacMan trong map
+	// set vi trí ( đỉnh) đồ thị của PacMan trong map
+	public void setPacIndex() { 
 		// Cơ chế set: trước tiên lấy row và col từ mainview -> do row và col của pacman
 		// bị người chơi thay đổi, nên phải cập nhật
 		// sau đó làm tương tự như ghost
@@ -99,8 +102,9 @@ public class Ghost {
 		return indexGhost;
 	}
 
+	// đường đi ngắn nhất từ ghost đến pacman
 	public List<Integer> shortestPath() {
-		// đường đi ngắn nhất từ ghost đến pacman
+		
 		List<Integer> result = new ArrayList<>();
 
 		result = path.duongDiNganNhat(indexGhost, indexPac);
@@ -142,7 +146,8 @@ public class Ghost {
 					rowghost--;
 				}
 
-			} else { // pacmac và ghost ở cùng 1 đỉnh => tức là ghost hoặc pacman
+			} // pacmac và ghost ở cùng 1 đỉnh => tức là ghost hoặc pacman
+			 else { 
 				// chưa đi đến đỉnh khác nên index chưa được set lại
 				if (rowghost == rowPac && colGhost == colPac) {
 					mainView.endGame();
@@ -187,8 +192,8 @@ public class Ghost {
 		return rowghost;
 	}
 
-	public boolean checkLeft() {
-		// tất cả check đều để kiểm tra xem vị trí tiếp theo có phải tường hay không
+	// tất cả check đều để kiểm tra xem vị trí tiếp theo có phải tường hay không
+	public boolean checkLeft() {	
 		return matrix[rowghost][colGhost - 1] != 0;
 	}
 
