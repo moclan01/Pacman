@@ -1,15 +1,10 @@
 package ghost;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import map.ShortestPath;
 import view.MainView;
@@ -48,7 +43,7 @@ public class Ghost {
 	public void setListIndex() { // set vị trí row, col của các đỉnh đồ thị trong map
 		colIndex[0] = 1;
 		rowIndex[0] = 1;
-		// Cơ chế set: trong file chứa ma trận map, những vị trí đỉnh được thay 
+		// Cơ chế set: trong file chứa ma trận map, những vị trí đỉnh được thay
 		// bởi giá trị của đỉnh đó - ví dụ: đỉnh 2 ở vị trí 5 5 thì matrix[5][5] = 2
 		// sau đó từ file lấy ra các giá trị row, col để gán là mảng
 		for (int i = 0; i < mainView.getMatrix().length; i++) {
@@ -112,11 +107,12 @@ public class Ghost {
 		return result;
 	}
 
-	public void moveGhost() { // phương thức di chuyển ghost
+	// phương thức di chuyển ghost
+	public void moveGhost() {
 		setPacIndex(); // cập nhật vị trí pacman
 		setGhostIndex();// cập nhật vị trí ghost
-		System.out.println("PacMan "+" PacIndex: "+indexPac+" row: "+rowPac+ " col: "+colPac);
-		System.out.println("Ghost "+" GhostIndex: "+indexGhost+" row: "+rowghost+ " col: "+colGhost);
+		System.out.println("PacMan " + " PacIndex: " + indexPac + " row: " + rowPac + " col: " + colPac);
+		System.out.println("Ghost " + " GhostIndex: " + indexGhost + " row: " + rowghost + " col: " + colGhost);
 		if (rowghost == rowPac && colGhost == colPac) {
 			// nếu ghost bắt được pacman thì kết thúc game
 			mainView.endGame();
@@ -124,12 +120,13 @@ public class Ghost {
 			map[rowghost][colGhost].setIcon(null); // xóa icon ghost ở vị trí củ
 			if (indexGhost != indexPac) { // pacman và ghost ở 2 đỉnh khác nhau
 				// => phải tìm đường đi
-				
-				System.out.println("Đường đi: "+shortestPath());
-				
-				int x = colIndex[shortestPath().get(1)]; 
+
+				System.out.println("Đường đi: " + shortestPath());
+
+				int x = colIndex[shortestPath().get(1)];
 				int y = rowIndex[shortestPath().get(1)];
-				//shortestPath().get(1) là đỉnh tiếp theo mà ghost phải đến trên đường đuổi theo pacman
+				// shortestPath().get(1) là đỉnh tiếp theo mà ghost phải đến trên đường đuổi
+				// theo pacman
 				System.out.println(y + " " + x);
 				if (colGhost < x && checkRight()) {
 					colGhost++;
@@ -165,8 +162,8 @@ public class Ghost {
 				}
 			}
 		}
-//		mainView.setRowGhost(rowghost);
-//		mainView.setColGhost(colGhost);
+		// mainView.setRowGhost(rowghost);
+		// mainView.setColGhost(colGhost);
 		map[rowghost][colGhost].setIcon(imgGhost); // set icon cho vị trí mới
 	}
 
@@ -190,7 +187,7 @@ public class Ghost {
 		return rowghost;
 	}
 
-	public boolean checkLeft() { 
+	public boolean checkLeft() {
 		// tất cả check đều để kiểm tra xem vị trí tiếp theo có phải tường hay không
 		return matrix[rowghost][colGhost - 1] != 0;
 	}

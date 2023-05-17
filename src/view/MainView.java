@@ -35,7 +35,6 @@ public class MainView extends JPanel {
 	int rowGhost = 5;// Dong cua Ghost trong map
 	int colGhost = 5;// Cot cua Ghost trong map
 	int huongDi = 0; // chua dung
-	// 1 -> left, 2 -> down, 3 -> right, 4-> up
 	int rowGhost2 = 5;// Dong cua Ghost trong map
 	int colGhost2 = 9;// Cot cua Ghost trong map
 	private Ghost ghost;
@@ -89,9 +88,11 @@ public class MainView extends JPanel {
 
 	public void movePacMan(KeyEvent e) {
 		playerController.keyPressed(e);
+
 	}
 
 	public void run() {
+		
 		Timer timer = new Timer();
 
 		TimerTask task = new TimerTask() {
@@ -101,6 +102,7 @@ public class MainView extends JPanel {
 					playerController.movePacman(getDirection());
 					ghost.moveGhost();
 					ghost2.moveGhost();
+					
 
 				}
 			}
@@ -108,6 +110,7 @@ public class MainView extends JPanel {
 		timer.scheduleAtFixedRate(task, 0, 200);
 
 	}
+
 
 	public void reset() {
 
