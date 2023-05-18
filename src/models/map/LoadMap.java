@@ -1,4 +1,4 @@
-package map;
+package models.map;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -59,11 +59,5 @@ public class LoadMap {
 
 	public void setMatrix(int[][] matrix) {
 		this.matrix = matrix;
-	}
-
-	public static void main(String[] args) {
-		LoadMap test = new LoadMap();
-		test.loadMatrix("./resources/map/Map_23x23.txt");
-		test.printMatrix();
 	}
 }

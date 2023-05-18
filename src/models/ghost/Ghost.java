@@ -1,4 +1,4 @@
-package ghost;
+package models.ghost;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import map.ShortestPath;
+import models.Location;
+import models.map.ShortestPath;
 import view.MainView;
 
 public class Ghost {
@@ -14,34 +15,35 @@ public class Ghost {
 	private ShortestPath path;
 	private int colPac;
 	private int rowPac;
-	private int colGhost;
-	private int rowGhost;
 	private int indexPac = 0;
 	private int indexGhost = 0;
 	private int[] colIndex;
 	private int[] rowIndex;
 	private JLabel[][] map;
-	private ImageIcon imgGhost;
 	private int[][] matrix;
 	private boolean endGame = false;
+	private Location location;
+	private ImageIcon icon;
 
-	public Ghost(MainView mainView, ShortestPath shortestPath) {
+	public Ghost(MainView mainView, ShortestPath shortestPath, Location location) {
 		this.mainView = mainView;
 		this.path = shortestPath;
+		this.location = location;
 		map = mainView.getMap();
-		imgGhost = mainView.getOrangeGhost();
 		colPac = mainView.getColPac();
 		rowPac = mainView.getRowPac();
-		colGhost = mainView.getColGhost();
-		rowGhost = mainView.getRowGhost();
 		matrix = mainView.getMatrix();
 		colIndex = new int[32];
 		rowIndex = new int[32];
 		setListIndex();
 	}
 
+	public void setImageIcon(ImageIcon icon) {
+		this.icon = icon;
+	}
+
 	// set vị trí row, col của các đỉnh đồ thị trong map
-	public void setListIndex() { 
+	public void setListIndex() {
 		colIndex[0] = 1;
 		rowIndex[0] = 1;
 		// Cơ chế set: trong file chứa ma trận map, những vị trí đỉnh được thay
@@ -58,7 +60,9 @@ public class Ghost {
 	}
 
 	// set vị trí (đỉnh) đồ thị của ghost trong map
-	public void setGhostIndex() { 
+	public void setGhostIndex() {
+		int rowGhost = location.getX();
+		int colGhost = location.getY();
 		// Cơ chế set: Nếu row và col của ghost đều = với row và col của 1 đỉnh thì
 		// vị trí của ghost = đỉnh có row, col trùng vs row col của ghost
 		for (int i = 0; i < colIndex.length; i++) {
@@ -69,7 +73,7 @@ public class Ghost {
 	}
 
 	// set vi trí ( đỉnh) đồ thị của PacMan trong map
-	public void setPacIndex() { 
+	public void setPacIndex() {
 		// Cơ chế set: trước tiên lấy row và col từ mainview -> do row và col của pacman
 		// bị người chơi thay đổi, nên phải cập nhật
 		// sau đó làm tương tự như ghost
@@ -80,11 +84,6 @@ public class Ghost {
 				indexPac = i;
 			}
 		}
-	}	
-
-	public void setPosition(int x, int y){
-		this.rowGhost = x;
-		this.colGhost = y;
 	}
 
 	public int[] getColIndex() {
@@ -109,7 +108,7 @@ public class Ghost {
 
 	// đường đi ngắn nhất từ ghost đến pacman
 	public List<Integer> shortestPath() {
-		
+
 		List<Integer> result = new ArrayList<>();
 
 		result = path.duongDiNganNhat(indexGhost, indexPac);
@@ -117,11 +116,11 @@ public class Ghost {
 	}
 
 	// phương thức di chuyển ghost
-	public void moveGhost() {
+	public void move() {
+		int rowGhost = location.getX();
+		int colGhost = location.getY();
 		setPacIndex(); // cập nhật vị trí pacman
 		setGhostIndex();// cập nhật vị trí ghost
-		System.out.println("PacMan " + " PacIndex: " + indexPac + " row: " + rowPac + " col: " + colPac);
-		System.out.println("Ghost " + " GhostIndex: " + indexGhost + " row: " + rowGhost + " col: " + colGhost);
 		if (rowGhost == rowPac && colGhost == colPac) {
 			// nếu ghost bắt được pacman thì kết thúc game
 			mainView.endGame();
@@ -152,7 +151,7 @@ public class Ghost {
 				}
 
 			} // pacmac và ghost ở cùng 1 đỉnh => tức là ghost hoặc pacman
-			 else { 
+			else {
 				// chưa đi đến đỉnh khác nên index chưa được set lại
 				if (rowGhost == rowPac && colGhost == colPac) {
 					mainView.endGame();
@@ -174,7 +173,8 @@ public class Ghost {
 		}
 		// mainView.setRowGhost(rowghost);
 		// mainView.setColGhost(colGhost);
-		map[rowGhost][colGhost].setIcon(imgGhost); // set icon cho vị trí mới
+		this.location.setLocation(rowGhost, colGhost);
+		map[rowGhost][colGhost].setIcon(icon); // set icon cho vị trí mới
 	}
 
 	public MainView getMainView() {
@@ -189,32 +189,52 @@ public class Ghost {
 		return rowPac;
 	}
 
-	public int getColGhost() {
-		return colGhost;
-	}
-
-	public int getRowGhost() {
-		return rowGhost;
-	}
-
 	// tất cả check đều để kiểm tra xem vị trí tiếp theo có phải tường hay không
-	public boolean checkLeft() {	
+	public boolean checkLeft() {
+		int rowGhost = location.getX();
+		int colGhost = location.getY();
 		return matrix[rowGhost][colGhost - 1] != 0;
 	}
 
 	public boolean checkRight() {
+		int rowGhost = location.getX();
+		int colGhost = location.getY();
 		return matrix[rowGhost][colGhost + 1] != 0;
 	}
 
 	public boolean checkUp() {
+		int rowGhost = location.getX();
+		int colGhost = location.getY();
 		return matrix[rowGhost - 1][colGhost] != 0;
 	}
 
 	public boolean checkDown() {
+		int rowGhost = location.getX();
+		int colGhost = location.getY();
 		return matrix[rowGhost + 1][colGhost] != 0;
 	}
 
 	public boolean endGame() {
 		return endGame;
+	}
+
+	public JLabel[][] getMap() {
+		return map;
+	}
+
+	public int[][] getMatrix() {
+		return matrix;
+	}
+
+	public boolean isEndGame() {
+		return endGame;
+	}
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public ImageIcon getIcon() {
+		return icon;
 	}
 }

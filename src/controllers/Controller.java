@@ -1,4 +1,9 @@
-package view;
+package controllers;
+
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import view.View;
 
 public class Controller {
 	private View view;

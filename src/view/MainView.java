@@ -13,12 +13,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ghost.Ghost;
-import ghost.Ghost2;
-import map.LoadMap;
-import map.ShortestPath;
-import pacman.Foods;
-import pacman.Pacman;
+import controllers.Controller;
+import models.Foods;
+import models.Location;
+import models.ghost.Ghost;
+import models.ghost.GhostManagement;
+import models.map.LoadMap;
+import models.map.ShortestPath;
+import models.pacman.Pacman;
 
 public class MainView extends JPanel {
 	private final ImageIcon pacman = new ImageIcon("resources/image/pacman.png");
@@ -37,15 +39,10 @@ public class MainView extends JPanel {
 	private Controller controller;
 	int rowPac = 17; // Dong cua Pacman trong map ban dau
 	int colPac = 17;// Cot cua PamMan trong map ban dau
-	int rowGhost = 5;// Dong cua Ghost trong map
-	int colGhost = 5;// Cot cua Ghost trong map
 	int huongDi = 0; // chua dung
-	int rowGhost2 = 5;// Dong cua Ghost trong map
-	int colGhost2 = 9;// Cot cua Ghost trong map
-	private Ghost ghost;
-	private Ghost2 ghost2;
-	private ImageIcon orangeGhost = new ImageIcon("resources/image/orangeGhost.gif");
-	private ImageIcon redGhost = new ImageIcon("resources/image/redGhost.gif");
+	private GhostManagement ghostManagement = new GhostManagement();
+	private ImageIcon orangeGhostIcon = new ImageIcon("resources/image/orangeGhost.gif");
+	private ImageIcon redGhostIcon = new ImageIcon("resources/image/redGhost.gif");
 	private boolean endGame = false;
 
 	public int getDirection() {
@@ -65,8 +62,16 @@ public class MainView extends JPanel {
 
 		this.matrix = loadMap.getMatrix();
 		this.map = new JLabel[matrix.length][matrix.length];
-		this.ghost = new Ghost(this, new ShortestPath("resources/map/LTDT_Map_23x23.txt"));
-		this.ghost2 = new Ghost2(this, new ShortestPath("resources/map/LTDT_Map_23x23.txt"));
+		Ghost redGhost = new Ghost(this, new ShortestPath("resources/map/LTDT_Map_23x23.txt"), new Location(5, 5));
+		Ghost orangeGhost = new Ghost(this, new ShortestPath("resources/map/LTDT_Map_23x23.txt"), new Location(5, 9));
+
+		redGhost.setImageIcon(redGhostIcon);
+		orangeGhost.setImageIcon(orangeGhostIcon);
+		
+
+		this.ghostManagement.addGhost(redGhost);
+		this.ghostManagement.addGhost(orangeGhost);
+
 		this.playerController = new Pacman(this);
 		addKeyListener(playerController);
 		this.cow = matrix.length;
@@ -87,9 +92,14 @@ public class MainView extends JPanel {
 		}
 
 		map[rowPac][colPac].setIcon(pacman);
-		map[rowGhost][colGhost].setIcon(orangeGhost);
-		map[rowGhost2][colGhost2].setIcon(redGhost);
+		// map[rowGhost][colGhost].setIcon(orangeGhost);
+		// map[rowGhost2][colGhost2].setIcon(redGhost);
 
+		for(Ghost ghost : ghostManagement.getGhosts()) {
+			int row = ghost.getLocation().getX();
+			int col = ghost.getLocation().getY();
+			map[row][col].setIcon(ghost.getIcon());
+		}
 		setVisible(true);
 	}
 
@@ -110,19 +120,16 @@ public class MainView extends JPanel {
 	}
 
 	public void run() {
-		
 		Timer timer = new Timer();
-
 		TimerTask task = new TimerTask() {
 			public void run() {
-				// gọi hàm điều hướng
 				if (!endGame) {
 					playerController.movePacman(getDirection());
-					ghost.moveGhost();
-					ghost2.moveGhost();
+					ghostManagement.moveAllGhost();
 				}
 			}
 		};
+
 		timer.scheduleAtFixedRate(task, 0, 200);
 
 	}
@@ -197,22 +204,6 @@ public class MainView extends JPanel {
 		this.colPac = colPac;
 	}
 
-	public int getRowGhost() {
-		return rowGhost;
-	}
-
-	public void setRowGhost(int rowGhost) {
-		this.rowGhost = rowGhost;
-	}
-
-	public int getColGhost() {
-		return colGhost;
-	}
-
-	public void setColGhost(int colGhost) {
-		this.colGhost = colGhost;
-	}
-
 	public int getHuongDi() {
 		return huongDi;
 	}
@@ -221,12 +212,12 @@ public class MainView extends JPanel {
 		this.huongDi = huongDi;
 	}
 
-	public ImageIcon getOrangeGhost() {
-		return orangeGhost;
+	public ImageIcon getOrangeGhostIcon() {
+		return orangeGhostIcon;
 	}
 
-	public void setOrangeGhost(ImageIcon orangeGhost) {
-		this.orangeGhost = orangeGhost;
+	public void setOrangeGhostIcon(ImageIcon orangeGhost) {
+		this.orangeGhostIcon = orangeGhost;
 	}
 
 	public ImageIcon getPacmanU() {
@@ -248,17 +239,8 @@ public class MainView extends JPanel {
 	public void setEndGame(boolean endGame) {
 		this.endGame = endGame;
 	}
-
-	public int getRowGhost2() {
-		return rowGhost2;
-	}
-
-	public int getColGhost2() {
-		return colGhost2;
-	}
-
-	public ImageIcon getRedGhost() {
-		return redGhost;
+	public ImageIcon getRedGhostIcon() {
+		return redGhostIcon;
 	}
 
 }

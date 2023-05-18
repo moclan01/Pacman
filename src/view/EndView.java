@@ -11,6 +11,8 @@ import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import controllers.Controller;
+
 public class EndView extends JPanel implements KeyListener {
 	JButton jbt_choiLai;
 	JButton jbt_thoat;

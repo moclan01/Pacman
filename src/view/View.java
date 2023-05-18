@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
+import controllers.Controller;
+
 public class View extends JFrame implements KeyListener {
 	MainView mainView;
 	StartView startView;
