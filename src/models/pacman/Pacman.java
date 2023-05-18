@@ -1,4 +1,4 @@
-package pacman;
+package models.pacman;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -6,14 +6,22 @@ import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import models.Location;
 import view.MainView;
 
 public class Pacman implements KeyListener {
 
 	private MainView mainView;
 	private int[][] matrix;
-	private int rowPac;
-	private int colPac;
+	private Location location;
+
+	public Location getLocation() {
+		return location;
+	}
+
+	public void setLocation(Location location) {
+		this.location = location;
+	}
 
 	public Pacman(MainView mainView) {
 		this.mainView = mainView;
@@ -30,8 +38,9 @@ public class Pacman implements KeyListener {
 	public void movePacman(int direction) {
 
 		matrix = mainView.getMatrix();
-		rowPac = mainView.getRowPac();
-		colPac = mainView.getColPac();
+		int rowPac = mainView.getRowPac();
+		int colPac = mainView.getColPac();
+		this.location = new Location(rowPac, colPac);
 		JLabel[][] map = mainView.getMap();
 		ImageIcon pacmanU = mainView.getPacmanU();
 		ImageIcon pacmanD = mainView.getPacmanD();
@@ -77,6 +86,7 @@ public class Pacman implements KeyListener {
 				map[rowPac][colPac].setIcon(pacmanR);
 			}
 		}
+		location.setLocation(rowPac, colPac);
 	}
 
 	@Override
@@ -98,27 +108,28 @@ public class Pacman implements KeyListener {
 
 	}
 
-	public int getRowPac() {
-		return rowPac;
-	}
-
-	public int getColPac() {
-		return colPac;
-	}
 
 	public boolean checkLeft() {
+		int rowPac = location.getX();
+		int colPac = location.getY();
 		return matrix[rowPac][colPac - 1] != 0;
 	}
 
 	public boolean checkRight() {
+		int rowPac = location.getX();
+		int colPac = location.getY();
 		return matrix[rowPac][colPac + 1] != 0;
 	}
 
 	public boolean checkUp() {
+		int rowPac = location.getX();
+		int colPac = location.getY();
 		return matrix[rowPac - 1][colPac] != 0;
 	}
 
 	public boolean checkDown() {
+		int rowPac = location.getX();
+		int colPac = location.getY();
 		return matrix[rowPac + 1][colPac] != 0;
 	}
 }

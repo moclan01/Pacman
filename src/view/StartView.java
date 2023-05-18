@@ -10,6 +10,8 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
+import controllers.Controller;
+
 public class StartView extends JPanel implements KeyListener {
 	Controller controller;
 
