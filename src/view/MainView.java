@@ -1,8 +1,11 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,8 +15,10 @@ import javax.swing.JPanel;
 
 import ghost.Ghost;
 import ghost.Ghost2;
+import ghost.GhostManagement;
 import map.LoadMap;
 import map.ShortestPath;
+import pacman.Foods;
 import pacman.PlayerController;
 
 public class MainView extends JPanel {
@@ -26,6 +31,8 @@ public class MainView extends JPanel {
 	private int direction = KeyEvent.VK_RIGHT; // lay su kien tu ban phim
 	private int[][] matrix; //
 	private JLabel[][] map;
+	private List<Foods> foods;
+	private List<GhostManagement> ghosts;
 
 	private int cow;
 	private PlayerController playerController;
@@ -52,6 +59,8 @@ public class MainView extends JPanel {
 	}
 
 	public MainView(String pathFile, Controller controller) {
+		foods = new ArrayList<>();
+		ghosts = new ArrayList<>();
 		this.controller = controller;
 
 		LoadMap loadMap = new LoadMap();
@@ -72,6 +81,7 @@ public class MainView extends JPanel {
 				map[i][j].setOpaque(true);
 				if (matrix[i][j] != 0) {
 					map[i][j].setBackground(Color.gray);
+					foods.add(new Foods(i, j));
 				} else {
 					map[i][j].setBackground(Color.BLACK);
 				}
@@ -91,6 +101,16 @@ public class MainView extends JPanel {
 
 	}
 
+	public void render(Graphics g){
+		for (int i = 0; i < matrix.length; i++){
+			for(int j = 0; j < matrix.length; j++){
+				if(matrix[i][j] != 0){
+					foods.get(i).render(g);
+				}
+			}
+		}
+	}
+
 	public void run() {
 		
 		Timer timer = new Timer();
@@ -102,8 +122,6 @@ public class MainView extends JPanel {
 					playerController.movePacman(getDirection());
 					ghost.moveGhost();
 					ghost2.moveGhost();
-					
-
 				}
 			}
 		};

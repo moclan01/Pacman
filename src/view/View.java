@@ -22,7 +22,7 @@ public class View extends JFrame implements KeyListener {
 		mainView.requestFocus();
 		startView.setFocusable(true);
 		repaint();
-		this.setTitle("PamMan");
+		this.setTitle("PacMan");
 		this.setSize(600,600);
 		this.addKeyListener(this);
 		this.setLocationRelativeTo(null);
