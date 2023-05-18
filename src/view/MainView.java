@@ -15,11 +15,10 @@ import javax.swing.JPanel;
 
 import ghost.Ghost;
 import ghost.Ghost2;
-import ghost.GhostManagement;
 import map.LoadMap;
 import map.ShortestPath;
 import pacman.Foods;
-import pacman.PlayerController;
+import pacman.Pacman;
 
 public class MainView extends JPanel {
 	private final ImageIcon pacman = new ImageIcon("resources/image/pacman.png");
@@ -32,10 +31,9 @@ public class MainView extends JPanel {
 	private int[][] matrix; //
 	private JLabel[][] map;
 	private List<Foods> foods;
-	private List<GhostManagement> ghosts;
 
 	private int cow;
-	private PlayerController playerController;
+	private Pacman playerController;
 	private Controller controller;
 	int rowPac = 17; // Dong cua Pacman trong map ban dau
 	int colPac = 17;// Cot cua PamMan trong map ban dau
@@ -60,7 +58,6 @@ public class MainView extends JPanel {
 
 	public MainView(String pathFile, Controller controller) {
 		foods = new ArrayList<>();
-		ghosts = new ArrayList<>();
 		this.controller = controller;
 
 		LoadMap loadMap = new LoadMap();
@@ -70,7 +67,7 @@ public class MainView extends JPanel {
 		this.map = new JLabel[matrix.length][matrix.length];
 		this.ghost = new Ghost(this, new ShortestPath("resources/map/LTDT_Map_23x23.txt"));
 		this.ghost2 = new Ghost2(this, new ShortestPath("resources/map/LTDT_Map_23x23.txt"));
-		this.playerController = new PlayerController(this);
+		this.playerController = new Pacman(this);
 		addKeyListener(playerController);
 		this.cow = matrix.length;
 
@@ -100,7 +97,8 @@ public class MainView extends JPanel {
 		playerController.keyPressed(e);
 
 	}
-
+	
+	// tạo thức ăn
 	public void render(Graphics g){
 		for (int i = 0; i < matrix.length; i++){
 			for(int j = 0; j < matrix.length; j++){
@@ -175,11 +173,11 @@ public class MainView extends JPanel {
 		this.cow = cow;
 	}
 
-	public PlayerController getPlayerController() {
+	public Pacman getPlayerController() {
 		return playerController;
 	}
 
-	public void setPlayerController(PlayerController player) {
+	public void setPlayerController(Pacman player) {
 		this.playerController = player;
 	}
 

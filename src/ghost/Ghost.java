@@ -15,7 +15,7 @@ public class Ghost {
 	private int colPac;
 	private int rowPac;
 	private int colGhost;
-	private int rowghost;
+	private int rowGhost;
 	private int indexPac = 0;
 	private int indexGhost = 0;
 	private int[] colIndex;
@@ -33,7 +33,7 @@ public class Ghost {
 		colPac = mainView.getColPac();
 		rowPac = mainView.getRowPac();
 		colGhost = mainView.getColGhost();
-		rowghost = mainView.getRowGhost();
+		rowGhost = mainView.getRowGhost();
 		matrix = mainView.getMatrix();
 		colIndex = new int[32];
 		rowIndex = new int[32];
@@ -62,7 +62,7 @@ public class Ghost {
 		// Cơ chế set: Nếu row và col của ghost đều = với row và col của 1 đỉnh thì
 		// vị trí của ghost = đỉnh có row, col trùng vs row col của ghost
 		for (int i = 0; i < colIndex.length; i++) {
-			if (rowghost == rowIndex[i] && colGhost == colIndex[i]) {
+			if (rowGhost == rowIndex[i] && colGhost == colIndex[i]) {
 				indexGhost = i;
 			}
 		}
@@ -80,6 +80,11 @@ public class Ghost {
 				indexPac = i;
 			}
 		}
+	}	
+
+	public void setPosition(int x, int y){
+		this.rowGhost = x;
+		this.colGhost = y;
 	}
 
 	public int[] getColIndex() {
@@ -116,12 +121,12 @@ public class Ghost {
 		setPacIndex(); // cập nhật vị trí pacman
 		setGhostIndex();// cập nhật vị trí ghost
 		System.out.println("PacMan " + " PacIndex: " + indexPac + " row: " + rowPac + " col: " + colPac);
-		System.out.println("Ghost " + " GhostIndex: " + indexGhost + " row: " + rowghost + " col: " + colGhost);
-		if (rowghost == rowPac && colGhost == colPac) {
+		System.out.println("Ghost " + " GhostIndex: " + indexGhost + " row: " + rowGhost + " col: " + colGhost);
+		if (rowGhost == rowPac && colGhost == colPac) {
 			// nếu ghost bắt được pacman thì kết thúc game
 			mainView.endGame();
 		} else {
-			map[rowghost][colGhost].setIcon(null); // xóa icon ghost ở vị trí củ
+			map[rowGhost][colGhost].setIcon(null); // xóa icon ghost ở vị trí củ
 			if (indexGhost != indexPac) { // pacman và ghost ở 2 đỉnh khác nhau
 				// => phải tìm đường đi
 
@@ -139,17 +144,17 @@ public class Ghost {
 					colGhost--;
 				}
 
-				if (rowghost < y && checkDown()) {
-					rowghost++;
+				if (rowGhost < y && checkDown()) {
+					rowGhost++;
 				}
-				if (rowghost > y && checkUp()) {
-					rowghost--;
+				if (rowGhost > y && checkUp()) {
+					rowGhost--;
 				}
 
 			} // pacmac và ghost ở cùng 1 đỉnh => tức là ghost hoặc pacman
 			 else { 
 				// chưa đi đến đỉnh khác nên index chưa được set lại
-				if (rowghost == rowPac && colGhost == colPac) {
+				if (rowGhost == rowPac && colGhost == colPac) {
 					mainView.endGame();
 				} else {
 					if (colGhost < colPac && checkRight()) {
@@ -158,18 +163,18 @@ public class Ghost {
 					if (colGhost > colPac && checkLeft()) {
 						colGhost--;
 					}
-					if (rowghost < rowPac && checkDown()) {
-						rowghost++;
+					if (rowGhost < rowPac && checkDown()) {
+						rowGhost++;
 					}
-					if (rowghost > rowPac && checkUp()) {
-						rowghost--;
+					if (rowGhost > rowPac && checkUp()) {
+						rowGhost--;
 					}
 				}
 			}
 		}
 		// mainView.setRowGhost(rowghost);
 		// mainView.setColGhost(colGhost);
-		map[rowghost][colGhost].setIcon(imgGhost); // set icon cho vị trí mới
+		map[rowGhost][colGhost].setIcon(imgGhost); // set icon cho vị trí mới
 	}
 
 	public MainView getMainView() {
@@ -188,25 +193,25 @@ public class Ghost {
 		return colGhost;
 	}
 
-	public int getRowghost() {
-		return rowghost;
+	public int getRowGhost() {
+		return rowGhost;
 	}
 
 	// tất cả check đều để kiểm tra xem vị trí tiếp theo có phải tường hay không
 	public boolean checkLeft() {	
-		return matrix[rowghost][colGhost - 1] != 0;
+		return matrix[rowGhost][colGhost - 1] != 0;
 	}
 
 	public boolean checkRight() {
-		return matrix[rowghost][colGhost + 1] != 0;
+		return matrix[rowGhost][colGhost + 1] != 0;
 	}
 
 	public boolean checkUp() {
-		return matrix[rowghost - 1][colGhost] != 0;
+		return matrix[rowGhost - 1][colGhost] != 0;
 	}
 
 	public boolean checkDown() {
-		return matrix[rowghost + 1][colGhost] != 0;
+		return matrix[rowGhost + 1][colGhost] != 0;
 	}
 
 	public boolean endGame() {

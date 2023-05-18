@@ -8,14 +8,14 @@ import javax.swing.JLabel;
 
 import view.MainView;
 
-public class PlayerController implements KeyListener {
+public class Pacman implements KeyListener {
 
 	private MainView mainView;
 	private int[][] matrix;
 	private int rowPac;
 	private int colPac;
 
-	public PlayerController(MainView mainView) {
+	public Pacman(MainView mainView) {
 		this.mainView = mainView;
 	}
 
