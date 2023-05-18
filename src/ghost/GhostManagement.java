@@ -1,4 +1,4 @@
-package models.ghost;
+package ghost;
 
 import java.util.ArrayList;
 import java.util.List;

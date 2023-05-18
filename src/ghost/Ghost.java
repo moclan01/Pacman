@@ -1,13 +1,14 @@
-package models.ghost;
+package ghost;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import models.Location;
-import models.map.ShortestPath;
+import Location.Location;
+import map.ShortestPath;
 import view.MainView;
 
 public class Ghost {
@@ -24,8 +25,10 @@ public class Ghost {
 	private boolean endGame = false;
 	private Location location;
 	private ImageIcon icon;
+	private Random rd;
 
 	public Ghost(MainView mainView, ShortestPath shortestPath, Location location) {
+		rd = new Random();
 		this.mainView = mainView;
 		this.path = shortestPath;
 		this.location = location;
@@ -108,10 +111,15 @@ public class Ghost {
 
 	// đường đi ngắn nhất từ ghost đến pacman
 	public List<Integer> shortestPath() {
+		int index = rd.nextInt(1);
 
 		List<Integer> result = new ArrayList<>();
+		if(index == 0){
+			result = path.duongDiNganNhat(indexGhost, indexPac);
+		} else {
+			result = path.duongDiNganNhat2(indexGhost, indexPac);
 
-		result = path.duongDiNganNhat(indexGhost, indexPac);
+		}
 		return result;
 	}
 

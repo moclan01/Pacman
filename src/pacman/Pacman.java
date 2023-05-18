@@ -1,4 +1,4 @@
-package models.pacman;
+package pacman;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import models.Location;
+import Location.Location;
 import view.MainView;
 
 public class Pacman implements KeyListener {

@@ -13,14 +13,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Location.Location;
 import controllers.Controller;
-import models.Foods;
-import models.Location;
-import models.ghost.Ghost;
-import models.ghost.GhostManagement;
-import models.map.LoadMap;
-import models.map.ShortestPath;
-import models.pacman.Pacman;
+import ghost.Ghost;
+import ghost.GhostManagement;
+import map.LoadMap;
+import map.ShortestPath;
+import pacman.Pacman;
 
 public class MainView extends JPanel {
 	private final ImageIcon pacman = new ImageIcon("resources/image/pacman.png");
@@ -32,7 +31,6 @@ public class MainView extends JPanel {
 	private int direction = KeyEvent.VK_RIGHT; // lay su kien tu ban phim
 	private int[][] matrix; //
 	private JLabel[][] map;
-	private List<Foods> foods;
 
 	private int cow;
 	private Pacman playerController;
@@ -54,7 +52,6 @@ public class MainView extends JPanel {
 	}
 
 	public MainView(String pathFile, Controller controller) {
-		foods = new ArrayList<>();
 		this.controller = controller;
 
 		LoadMap loadMap = new LoadMap();
@@ -62,8 +59,8 @@ public class MainView extends JPanel {
 
 		this.matrix = loadMap.getMatrix();
 		this.map = new JLabel[matrix.length][matrix.length];
-		Ghost redGhost = new Ghost(this, new ShortestPath("resources/map/LTDT_Map_23x23.txt"), new Location(5, 5));
-		Ghost orangeGhost = new Ghost(this, new ShortestPath("resources/map/LTDT_Map_23x23.txt"), new Location(5, 9));
+		Ghost redGhost = new Ghost(this, new ShortestPath("./resources/map/LTDT_Map_23x23.txt"), new Location(5, 5));
+		Ghost orangeGhost = new Ghost(this, new ShortestPath("./resources/map/LTDT_Map_23x23.txt"), new Location(5, 9));
 
 		redGhost.setImageIcon(redGhostIcon);
 		orangeGhost.setImageIcon(orangeGhostIcon);
@@ -83,7 +80,6 @@ public class MainView extends JPanel {
 				map[i][j].setOpaque(true);
 				if (matrix[i][j] != 0) {
 					map[i][j].setBackground(Color.gray);
-					foods.add(new Foods(i, j));
 				} else {
 					map[i][j].setBackground(Color.BLACK);
 				}
@@ -108,16 +104,6 @@ public class MainView extends JPanel {
 
 	}
 	
-	// tạo thức ăn
-	public void render(Graphics g){
-		for (int i = 0; i < matrix.length; i++){
-			for(int j = 0; j < matrix.length; j++){
-				if(matrix[i][j] != 0){
-					foods.get(i).render(g);
-				}
-			}
-		}
-	}
 
 	public void run() {
 		Timer timer = new Timer();

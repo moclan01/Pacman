@@ -1,4 +1,4 @@
-package models;
+package Location;
 
 public class Location {
     
