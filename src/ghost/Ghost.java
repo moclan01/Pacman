@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import Location.Location;
+import control.GameResultChecker;
 import map.ShortestPath;
 import view.MainView;
 
@@ -26,6 +27,7 @@ public class Ghost {
 	private Location location;
 	private ImageIcon icon;
 	private Random rd;
+	private GameResultChecker gameResultChecker;
 
 	public Ghost(MainView mainView, ShortestPath shortestPath, Location location) {
 		rd = new Random();
@@ -132,6 +134,7 @@ public class Ghost {
 		if (rowGhost == rowPac && colGhost == colPac) {
 			// nếu ghost bắt được pacman thì kết thúc game
 			mainView.endGame();
+			// gameResultChecker.end();
 		} else {
 			map[rowGhost][colGhost].setIcon(null); // xóa icon ghost ở vị trí củ
 			if (indexGhost != indexPac) { // pacman và ghost ở 2 đỉnh khác nhau
@@ -163,6 +166,7 @@ public class Ghost {
 				// chưa đi đến đỉnh khác nên index chưa được set lại
 				if (rowGhost == rowPac && colGhost == colPac) {
 					mainView.endGame();
+					// gameResultChecker.end();
 				} else {
 					if (colGhost < colPac && checkRight()) {
 						colGhost++;
