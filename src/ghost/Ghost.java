@@ -8,7 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import Location.Location;
-import control.GameResultChecker;
 import map.ShortestPath;
 import view.MainView;
 
@@ -27,7 +26,8 @@ public class Ghost {
 	private Location location;
 	private ImageIcon icon;
 	private Random rd;
-	private GameResultChecker gameResultChecker;
+	private int rowGhost;
+	private int colGhost;
 
 	public Ghost(MainView mainView, ShortestPath shortestPath, Location location) {
 		rd = new Random();
@@ -40,6 +40,8 @@ public class Ghost {
 		matrix = mainView.getMatrix();
 		colIndex = new int[32];
 		rowIndex = new int[32];
+		rowGhost = location.getX();
+		colGhost = location.getY();
 		setListIndex();
 	}
 
@@ -66,8 +68,7 @@ public class Ghost {
 
 	// set vị trí (đỉnh) đồ thị của ghost trong map
 	public void setGhostIndex() {
-		int rowGhost = location.getX();
-		int colGhost = location.getY();
+
 		// Cơ chế set: Nếu row và col của ghost đều = với row và col của 1 đỉnh thì
 		// vị trí của ghost = đỉnh có row, col trùng vs row col của ghost
 		for (int i = 0; i < colIndex.length; i++) {
@@ -116,7 +117,7 @@ public class Ghost {
 		int index = rd.nextInt(1);
 
 		List<Integer> result = new ArrayList<>();
-		if(index == 0){
+		if (index == 0) {
 			result = path.duongDiNganNhat(indexGhost, indexPac);
 		} else {
 			result = path.duongDiNganNhat2(indexGhost, indexPac);
@@ -127,16 +128,20 @@ public class Ghost {
 
 	// phương thức di chuyển ghost
 	public void move() {
-		int rowGhost = location.getX();
-		int colGhost = location.getY();
+		if (rowGhost == rowPac && colGhost == colPac) {
+			mainView.endGame();
+		}
+//		rowGhost = location.getX();
+//		colGhost = location.getY();
 		setPacIndex(); // cập nhật vị trí pacman
 		setGhostIndex();// cập nhật vị trí ghost
+		System.out.println("PacMan " + " PacIndex: " + indexPac + " row: " + rowPac + " col: " + colPac);
+		System.out.println("Ghost " + " GhostIndex: " + indexGhost + " row: " + rowGhost + " col: " + colGhost);
 		if (rowGhost == rowPac && colGhost == colPac) {
 			// nếu ghost bắt được pacman thì kết thúc game
-			mainView.endGame();
-			// gameResultChecker.end();
+				mainView.endGame();
 		} else {
-			map[rowGhost][colGhost].setIcon(null); // xóa icon ghost ở vị trí củ
+			map[rowGhost][colGhost].setIcon(null); // xóa icon ghost ở vị trí cũ
 			if (indexGhost != indexPac) { // pacman và ghost ở 2 đỉnh khác nhau
 				// => phải tìm đường đi
 
@@ -166,7 +171,6 @@ public class Ghost {
 				// chưa đi đến đỉnh khác nên index chưa được set lại
 				if (rowGhost == rowPac && colGhost == colPac) {
 					mainView.endGame();
-					// gameResultChecker.end();
 				} else {
 					if (colGhost < colPac && checkRight()) {
 						colGhost++;
@@ -180,6 +184,7 @@ public class Ghost {
 					if (rowGhost > rowPac && checkUp()) {
 						rowGhost--;
 					}
+					
 				}
 			}
 		}
@@ -187,6 +192,8 @@ public class Ghost {
 		// mainView.setColGhost(colGhost);
 		this.location.setLocation(rowGhost, colGhost);
 		map[rowGhost][colGhost].setIcon(icon); // set icon cho vị trí mới
+		
+
 	}
 
 	public MainView getMainView() {

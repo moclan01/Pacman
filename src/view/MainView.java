@@ -61,9 +61,10 @@ public class MainView extends JPanel {
 
 		redGhost.setImageIcon(redGhostIcon);
 		orangeGhost.setImageIcon(orangeGhostIcon);
+		
 
-		this.ghostManagement.addGhost(orangeGhost);
 		this.ghostManagement.addGhost(redGhost);
+		this.ghostManagement.addGhost(orangeGhost);
 
 		this.playerController = new Pacman(this);
 		addKeyListener(playerController);
@@ -87,7 +88,7 @@ public class MainView extends JPanel {
 		// map[rowGhost][colGhost].setIcon(orangeGhost);
 		// map[rowGhost2][colGhost2].setIcon(redGhost);
 
-		for (Ghost ghost : ghostManagement.getGhosts()) {
+		for(Ghost ghost : ghostManagement.getGhosts()) {
 			int row = ghost.getLocation().getX();
 			int col = ghost.getLocation().getY();
 			map[row][col].setIcon(ghost.getIcon());
@@ -99,10 +100,7 @@ public class MainView extends JPanel {
 		playerController.keyPressed(e);
 
 	}
-
-	public void end() {
-		
-	}
+	
 
 	public void run() {
 		Timer timer = new Timer();
@@ -118,6 +116,7 @@ public class MainView extends JPanel {
 		timer.scheduleAtFixedRate(task, 0, 200);
 
 	}
+
 
 	public void reset() {
 
@@ -223,7 +222,6 @@ public class MainView extends JPanel {
 	public void setEndGame(boolean endGame) {
 		this.endGame = endGame;
 	}
-
 	public ImageIcon getRedGhostIcon() {
 		return redGhostIcon;
 	}
